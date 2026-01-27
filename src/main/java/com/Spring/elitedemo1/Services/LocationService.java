@@ -24,18 +24,6 @@ public class LocationService {
         return repo.save(location);
     }
 
-    //getbyID
-    public Location getById(String id, String userId) {
-        Location loc = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Location not found"));
-
-        if (!loc.getUserId().equals(userId)) {
-            throw new RuntimeException("Unauthorized");
-        }
-
-        return loc;
-    }
-
   //Delete
     public void delete(String id, String userId) {
         Location loc = repo.findById(id)

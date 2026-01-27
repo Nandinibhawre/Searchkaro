@@ -38,15 +38,6 @@ public class LocationController {
     }
 
 
-    @GetMapping("/{id}")
-    public Location getById(
-            @PathVariable String id,
-            HttpServletRequest request
-    ) {
-        System.out.println("User ID from request: " + getUserId(request));
-        return service.getById(id, getUserId(request));
-    }
-
     @DeleteMapping("/{id}")
     public void delete(
             @PathVariable String id,
