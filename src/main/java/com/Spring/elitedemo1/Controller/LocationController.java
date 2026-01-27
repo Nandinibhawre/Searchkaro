@@ -25,12 +25,12 @@ public class LocationController {
         return jwtUtil.extractUserId(token);
     }
 
-    @GetMapping
+    @GetMapping("/location")
     public List<Location> getAll(HttpServletRequest request) {
         return service.getByUser(getUserId(request));
     }
 
-    @PostMapping
+    @PostMapping("/postLocation")
     public Location create(
             @RequestBody Location location,
             HttpServletRequest request) {
