@@ -1,4 +1,10 @@
 package com.Spring.elitedemo1.Repository;
 
-public class LocationRepo {
+import com.Spring.elitedemo1.Model.Location;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
+
+public interface LocationRepo extends MongoRepository<Location, String> {
+    List<Location> findByUserId(String userId);
 }

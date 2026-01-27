@@ -1,6 +1,5 @@
 package com.Spring.elitedemo1.Controller;
 
-
 import com.Spring.elitedemo1.Model.Rating;
 import com.Spring.elitedemo1.Services.RatingServices;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +26,6 @@ public class RatingContoller {
         return ResponseEntity.ok(ratingService.addRating(rating, userId));
     }
 
-
     // ✅ Fetch ratings for table
     @GetMapping("/rating")
     public ResponseEntity<List<Rating>> getMyRatings(
@@ -45,8 +43,7 @@ public class RatingContoller {
 
         String userId = (String) request.getAttribute("userId");
         return ResponseEntity.ok(
-                ratingService.getRatingById(ratingId, userId)
-        );
+                ratingService.getRatingById(ratingId, userId));
     }
 
     // ❌ Delete rating
