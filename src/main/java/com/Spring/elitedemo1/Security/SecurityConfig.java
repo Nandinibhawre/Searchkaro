@@ -62,10 +62,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").authenticated()
                         // ✅ OTHER PROTECTED APIS
                         .requestMatchers("/api/protected").authenticated()
-                        .requestMatchers(
-                                "/api/location",
-                                "/api/location/**"   // 🔥 REQUIRED
-                        ).authenticated()
+                        // .requestMatchers(
+                        //         "/api/location",
+                        //         "/api/location/**"   // 🔥 REQUIRED
+                        // ).authenticated()
                         .anyRequest().permitAll()
                         // ❌ BLOCK EVERYTHING ELSE
                         .anyRequest().authenticated()
