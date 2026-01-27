@@ -44,32 +44,26 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+    // ✅ PUBLIC AUTH APIS
+    .requestMatchers(
+        "/api/auth/login",
+        "/api/auth/signup",
+        "/api/auth/forgot-password",
+        "/api/auth/reset-password"
+    ).permitAll()
 
-                        // ✅ PUBLIC AUTH APIS
-                        .requestMatchers(
-                                "/api/auth/login",
-                                "/api/auth/signup",
-                                "/api/auth/forgot-password",
-                                "/api/auth/reset-password"
-                        ).permitAll()
+    // ✅ CATEGORY APIs (JWT REQUIRED)
+    .requestMatchers(
+        "/api/categories/**",
+        "/categories/**",
+        "/api/location/**",   // 🔥 include location APIs here
+        "/api/protected"
+    ).authenticated()
 
-                        // ✅ CATEGORY APIs (JWT REQUIRED)
-                        .requestMatchers(
-                                "/ap " +
-                                        "i/categories/**",
-                                "/categories/**"
-                        ).authenticated()
-                        .requestMatchers("/api/**").authenticated()
-                        // ✅ OTHER PROTECTED APIS
-                        .requestMatchers("/api/protected").authenticated()
-                        // .requestMatchers(
-                        //         "/api/location",
-                        //         "/api/location/**"   // 🔥 REQUIRED
-                        // ).authenticated()
-                        .anyRequest().permitAll()
-                        // ❌ BLOCK EVERYTHING ELSE
-                        .anyRequest().authenticated()
-                )
+    // ✅ Any other request not matched above
+    .anyRequest().permitAll()
+)
+
 
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
