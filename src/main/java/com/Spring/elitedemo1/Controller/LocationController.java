@@ -37,12 +37,14 @@ public class LocationController {
         return service.create(location, getUserId(request));
     }
 
-    @PutMapping("/{id}")
-    public Location update(
+
+    @GetMapping("/{id}")
+    public Location getById(
             @PathVariable String id,
-            @RequestBody Location location,
-            HttpServletRequest request) {
-        return service.update(id, location, getUserId(request));
+            HttpServletRequest request
+    ) {
+        System.out.println("User ID from request: " + getUserId(request));
+        return service.getById(id, getUserId(request));
     }
 
     @DeleteMapping("/{id}")
@@ -51,4 +53,5 @@ public class LocationController {
             HttpServletRequest request) {
         service.delete(id, getUserId(request));
     }
+
 }
