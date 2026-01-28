@@ -16,8 +16,10 @@ public class DashboardServices
     @Autowired
     private DashboardRepo DashboardRepo;
     public List<DashboardDTO> getDashboardData(String userId) {
+        System.out.println("Fetching dashboard for userId = " + userId);
 
-        List<Dashboard>  dashboards = DashboardRepo.findByUserId(userId);
+        List<Dashboard> dashboards = DashboardRepo.findByUserId(userId);
+        System.out.println("Records found = " + dashboards.size());
 
         return dashboards.stream()
                 .map(a -> new DashboardDTO(
