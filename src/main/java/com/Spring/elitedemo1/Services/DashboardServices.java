@@ -1,32 +1,59 @@
 package com.Spring.elitedemo1.Services;
 
-import com.Spring.elitedemo1.Model.Dashboard;
-import com.Spring.elitedemo1.Repository.DashboardRepo;
-import com.Spring.elitedemo1.dto.DashboardDTO;
+import com.Spring.elitedemo1.Repository.CategoryRepo;
+import com.Spring.elitedemo1.Repository.LocationRepo;
+import com.Spring.elitedemo1.Repository.RatingRepo;
+import com.Spring.elitedemo1.dto.CategoresDTO;
+
+import com.Spring.elitedemo1.dto.LocationDTO;
+import com.Spring.elitedemo1.dto.RatingDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
-public class DashboardServices
-{
+public class DashboardServices{
+
     @Autowired
-    private DashboardRepo DashboardRepo;
-    public List<DashboardDTO> getDashboardData(String userId) {
-        System.out.println("Fetching dashboard for userId = " + userId);
+    private LocationRepo locationRepo;
 
-        List<Dashboard> dashboards = DashboardRepo.findByUserId(userId);
-        System.out.println("Records found = " + dashboards.size());
+    @Autowired
+    private RatingRepo ratingRepo;
 
-        return dashboards.stream()
-                .map(a -> new DashboardDTO(
-                        a.getCategory(),
-                        a.getLocation(),
-                        a.getRating()
+    @Autowired
+    private CategoryRepo categoryRepo;
+
+    // ✅ METHOD 1 – DTO-specific methods
+
+    public List<LocationDTO> getLocationDTOsByUserId(String userId) {
+        return locationRepo.findByUserId(userId)
+                .stream()
+                .map(l -> new LocationDTO(
+                        l.getLocation(),
+                        l.getRegion()
                 ))
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    public List<RatingDTO> getRatingDTOsByUserId(String userId) {
+        return ratingRepo.findByUserId(userId)
+                .stream()
+                .map(r -> new RatingDTO(
+                        r.getRating()
+                ))
+                .toList();
+    }
+
+    public List<CategoresDTO> getCategoryDTOsByUserId(String userId) {
+        return categoryRepo.findByUserId(userId)
+                .stream()
+                .map(c -> new CategoresDTO(
+                        c.getCategoryName(),
+                        c.getProductName()
+                ))
+                .toList();
     }
 }
+
