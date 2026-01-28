@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "activities")
+@Document(collection = "dashboard")
 public class Dashboard {
 
     @Id
