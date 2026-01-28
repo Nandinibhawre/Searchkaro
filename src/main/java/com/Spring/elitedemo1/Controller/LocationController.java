@@ -5,6 +5,7 @@ import com.Spring.elitedemo1.Services.LocationService;
 import com.Spring.elitedemo1.Util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,11 +39,12 @@ public class LocationController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public void delete(
+    @DeleteMapping("deleteLocation/{id}")
+    public  ResponseEntity<String>delete(
             @PathVariable String id,
             HttpServletRequest request) {
         service.delete(id, getUserId(request));
-    }
 
+         return ResponseEntity.ok("Location deleted successfully");
+    }
 }
