@@ -37,6 +37,8 @@ public class DashboardController {
         // ✅ userId from JWT
         String userId = jwtService.extractUserId(token);
 
+        System.out.println("JWT userId = " + userId);
+
         List<DashboardDTO> dashboardData =
                 dashboardService.getDashboardData(userId);
 
