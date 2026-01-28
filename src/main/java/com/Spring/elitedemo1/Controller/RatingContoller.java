@@ -45,8 +45,6 @@ public class RatingContoller {
         return ResponseEntity.ok(
                 ratingService.getRatingById(ratingId, userId));
     }
-
-    // ❌ Delete rating
     @DeleteMapping("/deleteRating/{ratingId}")
     public ResponseEntity<String> deleteRating(
             @PathVariable String ratingId,
