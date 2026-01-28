@@ -60,6 +60,9 @@ public class SecurityConfig {
         "/api/protected"
     ).authenticated()
 
+                        .requestMatchers(
+                                "/api/**"
+                        ).permitAll()
     // ✅ Any other request not matched above
     .anyRequest().permitAll()
 )
