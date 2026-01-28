@@ -3,7 +3,7 @@ package com.Spring.elitedemo1.Controller;
 
 import com.Spring.elitedemo1.Services.DashboardServices;
 import com.Spring.elitedemo1.Util.JwtUtil;
-import com.Spring.elitedemo1.dto.DashboardDTO;
+import com.Spring.elitedemo1.dto.DashboardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,11 +45,12 @@ public class DashboardController {
 //        return ResponseEntity.ok(dashboardData);
 //    }
 
-    @GetMapping("/dashboard/{id}")
-    public ResponseEntity<List<DashboardDTO>> dashboard(
+    @GetMapping("/dashboard/{userId}")
+    public ResponseEntity<DashboardResponse> dashboard(
             @RequestHeader("Authorization") String auth,
-            @PathVariable("id") String userId) {
+            @PathVariable String userId) {
 
+        // 🔐 TOKEN CHECK (YOUR CODE)
         if (!auth.startsWith("Bearer ")) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid token");
         }
@@ -60,17 +61,22 @@ public class DashboardController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Token invalid");
         }
 
-        // OPTIONAL but recommended 🔐
-        // ensure token user == path user
+        // 🔐 Extract userId from token
         String tokenUserId = jwtService.extractUserId(token);
+
+        // 🔐 Ensure token user == path user
         if (!tokenUserId.equals(userId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Unauthorized access");
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Unauthorized access");
         }
 
-        List<DashboardDTO> dashboardData =
-                dashboardService.getDashboardData(userId);
+        // 📊 DASHBOARD DATA (MY CODE)
+        DashboardResponse response = new DashboardResponse(
+                dashboardService.getCategoryDTOsByUserId(userId),
+                dashboardService.getLocationDTOsByUserId(userId),
+                dashboardService.getRatingDTOsByUserId(userId)
+        );
 
-        return ResponseEntity.ok(dashboardData);
+        return ResponseEntity.ok(response);
     }
-
 }
