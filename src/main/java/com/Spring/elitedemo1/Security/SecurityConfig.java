@@ -49,7 +49,8 @@ public class SecurityConfig {
         "/api/auth/login",
         "/api/auth/signup",
         "/api/auth/forgot-password",
-        "/api/auth/reset-password"
+        "/api/auth/reset-password",
+         "/api/**"
     ).permitAll()
 
     // ✅ CATEGORY APIs (JWT REQUIRED)
@@ -59,6 +60,10 @@ public class SecurityConfig {
         "/api/location/**",   // 🔥 include location APIs here
         "/api/dashboard/**"
     ).authenticated()
+
+                        .requestMatchers(
+                                "/api/**"
+                        ).permitAll()
     // ✅ Any other request not matched above
     .anyRequest().permitAll()
 )
