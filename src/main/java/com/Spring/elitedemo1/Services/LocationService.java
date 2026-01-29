@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class LocationService {
 
-    @Autowired
-    private LocationRepo repo;
+    private final LocationRepo repo;
+
+    public LocationService(LocationRepo repo) {
+        this.repo = repo;
+    }
 
     //get all location
     public List<Location> getByUser(String userId) {

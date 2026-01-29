@@ -57,12 +57,8 @@ public class SecurityConfig {
         "/api/categories/**",
         "/categories/**",
         "/api/location/**",   // 🔥 include location APIs here
-        "/api/protected"
+        "/api/dashboard/**"
     ).authenticated()
-
-                        .requestMatchers(
-                                "/api/**"
-                        ).permitAll()
     // ✅ Any other request not matched above
     .anyRequest().permitAll()
 )
