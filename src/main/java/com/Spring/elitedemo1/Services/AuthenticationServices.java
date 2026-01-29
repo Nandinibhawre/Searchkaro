@@ -1,5 +1,4 @@
 package com.Spring.elitedemo1.Services;
-
 import com.Spring.elitedemo1.Model.User;
 import com.Spring.elitedemo1.Repository.userRepo;
 import com.Spring.elitedemo1.Util.JwtUtil;
@@ -39,7 +38,6 @@ public class AuthenticationServices {
         }
 
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-
         if (!email.matches(emailRegex)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Invalid email format"
@@ -75,6 +73,7 @@ public class AuthenticationServices {
     }
 
 
+
     public AuthResponse login(LoginRequest request) {
 
        try {
@@ -105,7 +104,9 @@ public class AuthenticationServices {
         return new AuthResponse( user.getLuserid(),token ,user.getName(),user.getEmail());
     }
 
-    public User getUserById(String id) {
+
+    public User getUserById(String id)
+    {
         return userRepository.findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
