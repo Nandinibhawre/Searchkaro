@@ -8,19 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+
 @Service
-@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final userRepo userRepository;
-
-    // ✅ Constructor Injection (BEST PRACTICE)
-    public CustomUserDetailsService(userRepo userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private userRepo userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email)
@@ -28,15 +23,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(
-                                "User not found with email: " + email));
+                        new UsernameNotFoundException("User not found with email: " + email));
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword()) // 🔐 already encrypted
-                .authorities(Collections.emptyList()) // can add roles later
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getEmail())
+                .password(user.getPassword())// 🔐 encrypted
+
+                .authorities(Collections.emptyList())
                 .build();
     }
 }
-
-
