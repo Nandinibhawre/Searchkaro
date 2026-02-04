@@ -11,8 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class RatingContoller {
-
+public class RatingContoller
+{
     @Autowired
     private RatingServices ratingService;
 

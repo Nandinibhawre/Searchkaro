@@ -1,4 +1,4 @@
-package com.Spring.elitedemo1.Services;
+   package com.Spring.elitedemo1.Services;
 
 import com.Spring.elitedemo1.Model.User;
 import com.Spring.elitedemo1.Repository.userRepo;
@@ -77,16 +77,16 @@ public class AuthenticationServices {
 
     public AuthResponse login(LoginRequest request) {
 
-       try {
+        try {
             authenticationManager.authenticate(
-                   new UsernamePasswordAuthenticationToken(
+                    new UsernamePasswordAuthenticationToken(
                             request.getEmail(),
-                           request.getPassword()
+                            request.getPassword()
                     )
             );
         } catch (Exception e)
-       {
-           throw new ResponseStatusException(
+        {
+            throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED,
                     "Invalid email or password"
             );
@@ -110,4 +110,4 @@ public class AuthenticationServices {
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
-}
+}   

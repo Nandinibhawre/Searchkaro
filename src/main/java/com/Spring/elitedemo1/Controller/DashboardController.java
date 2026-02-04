@@ -20,6 +20,30 @@ public class DashboardController {
     private JwtUtil jwtService;
     @Autowired
     private DashboardServices dashboardService;
+//    @GetMapping("/dashboard")
+//    public ResponseEntity<List<DashboardDTO>> dashboard(
+//            @RequestHeader("Authorization") String auth) {
+//
+//        if (!auth.startsWith("Bearer ")) {
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid token");
+//        }
+//
+//        String token = auth.substring(7);
+//
+//        if (!jwtService.isTokenValid(token)) {
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Token invalid");
+//        }
+//
+//        // ✅ userId from JWT
+//        String userId = jwtService.extractUserId(token);
+//
+//        System.out.println("JWT userId = " + userId);
+//
+//        List<DashboardDTO> dashboardData =
+//                dashboardService.getDashboardData(userId);
+//
+//        return ResponseEntity.ok(dashboardData);
+//    }
 
     @GetMapping("/dashboard/{userId}")
     public ResponseEntity<DashboardResponse> dashboard(
