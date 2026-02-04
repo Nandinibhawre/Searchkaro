@@ -1,6 +1,5 @@
 package com.Spring.elitedemo1.Services;
 
-
 import com.Spring.elitedemo1.Model.User;
 import com.Spring.elitedemo1.Repository.userRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email: " + email));
+                        new UsernameNotFoundException(
+                                "User not found with email: " + email
+                        )
+                );
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
-                .password(user.getPassword())// 🔐 encrypted
-
+                .password(user.getPassword()) // 🔐 encrypted password
                 .authorities(Collections.emptyList())
                 .build();
     }
