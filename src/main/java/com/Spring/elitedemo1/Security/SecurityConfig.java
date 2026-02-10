@@ -93,7 +93,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of("http://localhost:5173",
-                "https://searchkaro-8za4.vercel.app/"));
+                "https://searchkaro-8za4.vercel.app/","https://frontend-react-mu-eosin.vercel.app/"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
